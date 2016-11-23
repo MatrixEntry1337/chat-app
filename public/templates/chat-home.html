@@ -1,0 +1,222 @@
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <form ng-submit="changeName()">
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="Enter Message... 10 character limit" ng-model="newName" />
+                        <div class=" text-center margin-top-10"><strong class="text-danger bg-danger">{{ errors.nameMessage }}</strong></div>
+                        <div class=" text-center margin-top-10"><strong class="text-success bg-success">{{ success.nameMessage }}</strong></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row " style="padding-top:40px;">
+        <h3 class="text-center">Chat Room </h3>
+        <br/><br/>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    CHAT ROOM ---- {{ name }}
+                    <button type="button" class="btn btn-success btn-xs pull-right" data-toggle="modal" data-target="#nameModal">
+                        Name
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <ul class="media-list">
+
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle " src="assets/img/user.png" />
+                                    </a>
+                                    <div class="media-body">
+                                        Donec sit amet ligula enim. Duis vel condimentum massa. Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim. Duis vel condimentum massa. Donec sit amet ligula enim. Duis vel condimentum massa.
+                                        <br />
+                                        <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                        <hr />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <form ng-submit="sendText()">
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="btn btn-danger">@</button></span>
+                            <input type="text" class="form-control" placeholder="Enter Message" ng-model="text" />
+                            <span class="input-group-btn">
+                            <button class="btn btn-danger" type="submit"  ng-disable="!haveName">SEND</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    ONLINE USERS
+                </div>
+                <div class="panel-body">
+                    <ul class="media-list">
+
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.png" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Alex Deo | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.gif" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Jhon Rexa | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.png" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Alex Deo | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.gif" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Jhon Rexa | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.png" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Alex Deo | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.gif" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Jhon Rexa | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.png" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Alex Deo | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li class="media">
+
+                            <div class="media-body">
+
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="assets/img/user.gif" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>Jhon Rexa | User </h5>
+
+                                        <small class="text-muted">Active From 3 hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
