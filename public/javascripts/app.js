@@ -1,4 +1,4 @@
-var appModule = angular.module('app', ['ui.router', 'chat', ]);
+var appModule = angular.module('app', ['ui.router', 'chat', 'luegg.directives']);
 
 appModule.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){
    $urlRouterProvider.otherwise('chat-home');

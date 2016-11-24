@@ -35,7 +35,7 @@
                     </button>
                 </div>
                 <div class="panel-body">
-                    <ul class="media-list">
+                    <ul class=" chat media-list" scroll-glue>
 
                         <li class="media" ng-repeat="each in messages">
 
@@ -48,7 +48,7 @@
                                     <div class="media-body">
                                         {{ each.message }}
                                         <br />
-                                        <small class="text-muted">{{ each.user }} | {{ each.date }} {{ each.time }}</small>
+                                        <small class="text-muted">{{ each.user }} | {{ each.date }} at {{ each.time }}</small>
                                         <hr />
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                 <div class="panel-footer">
                     <form ng-submit="sendMessage()">
                         <div class="input-group">
-                            <span class="input-group-btn"><button class="btn btn-danger" ng-disabled="!haveName">@</button></span>
+                            <span class="input-group-btn"><button class="btn btn-danger" type="button" ng-disabled="!haveName">@</button></span>
                             <input type="text" class="form-control" placeholder="Enter Message..." ng-model="message" ng-show="haveName"/>
                             <input type="text" class="form-control" placeholder="Create a name first..." ng-model="message" ng-show="!haveName" 
                                 data-toggle="modal" data-target="#nameModal"/>
@@ -77,29 +77,28 @@
                     ONLINE USERS
                 </div>
                 <div class="panel-body">
-                    <ul class="media-list">
+                    <ul class=" chat media-list">
 
                         <li class="media">
 
                             <div class="media-body">
 
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle" style="max-height:40px;" src="" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h5>Alex Deo | User </h5>
+                                <!--<div class="media">-->
+                                <!--    <a class="pull-left" href="#">-->
+                                <!--        <img class="media-object img-circle" style="max-height:40px;" src="" />-->
+                                <!--    </a>-->
+                                <!--    <div class="media-body">-->
+                                <!--        <h5>Alex Deo | User </h5>-->
 
-                                        <small class="text-muted">Active From 3 hours</small>
-                                    </div>
-                                </div>
+                                <!--        <small class="text-muted">Active From 3 hours</small>-->
+                                <!--    </div>-->
+                                <!--</div>-->
 
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
