@@ -19,7 +19,7 @@ module.exports.listen = function(app){
     
     socket.on('message', function(message, name, date){
       console.log("On server, new message received over socket: " + message + " from " + name);
-      socket.emit('message', message, name, date);
+      io.emit('message', message, name, date);
     });
   });
   
