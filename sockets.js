@@ -7,7 +7,7 @@ module.exports.listen = function(app){
   
   io.use(function(socket, next){
     var handshakeData = socket.request;
-    console.log("Middleware: " + handshakeData._query);
+    // console.log("Middleware: " + handshakeData._query);
     //Code for socket id here
     next();
   });
@@ -15,7 +15,12 @@ module.exports.listen = function(app){
   io.on('connection', function(socket){
     console.log('A new user connected.');
     var handshakeData = socket.request;
-    console.log(handshakeData);
+    // console.log(handshakeData);
+    
+    socket.on('message', function(message, name){
+      console.log("On server, new message received over socket: " + message + " from " + name);
+      socket.emit('message', message, name);
+    });
   });
   
   return io;

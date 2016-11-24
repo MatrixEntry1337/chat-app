@@ -4,17 +4,13 @@ chatModule.factory('chatFtry', ['$http', '$log', function($http, $log) {
   $log.log("Chat Factory connected");
   
   var chat = {};
+  // chat.messages = [];
+  chat.socket = io(); // Socket - create socket for user.
 
-  //Socket
-  chat.socket = io();
-
-  chat.sendText = function(text) {
-    console.log("Receieved text in factory: " + text);
+  chat.changeName = function(name){
+    console.log("Received name change in factory: " + name);
+    chat.name = name;
   };
   
-  chat.changeName = function(name){
-    console.log("Received text for name change: " + name);
-  };
-
   return chat;
 }]);

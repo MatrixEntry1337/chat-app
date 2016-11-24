@@ -1,7 +1,7 @@
 var appModule = angular.module('app', ['ui.router', 'chat', ]);
 
 appModule.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-   $urlRouterProvider.otherwise('404');
+   $urlRouterProvider.otherwise('chat-home');
 
     $stateProvider
         .state('chat-home', {
