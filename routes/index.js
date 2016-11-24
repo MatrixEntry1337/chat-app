@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Revature Group Chat Room' });
+  res.render('index', { title: 'Erase Me' });
 });
 
 module.exports = router;
