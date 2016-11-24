@@ -17,9 +17,9 @@ module.exports.listen = function(app){
     var handshakeData = socket.request;
     // console.log(handshakeData);
     
-    socket.on('message', function(message, name){
+    socket.on('message', function(message, name, date){
       console.log("On server, new message received over socket: " + message + " from " + name);
-      socket.emit('message', message, name);
+      socket.emit('message', message, name, date);
     });
   });
   

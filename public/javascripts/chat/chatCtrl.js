@@ -13,16 +13,18 @@ chatModule.controller('chatCtrl', ['chatFtry', '$scope', '$log',
     
     // send message
     $scope.sendMessage = function() {
+      var date = new Date();
       console.log("Sending message over socket: " + this.message);
-      socket.emit('message', this.message, this.name);
+      socket.emit('message', this.message, this.name, date);
       this.message = "";
     };
     
     // receive message
-    socket.on('message', function(message, name){
+    socket.on('message', function(message, name, date){
       $log.log("Received message on socket from server: " + message + " from " + name);
+      var rehydrate = new Date(date);
       $scope.$apply(function(){
-        $scope.messages.push({user: name, message: message});
+        $scope.messages.push({user: name, message: message, date: rehydrate.toLocaleDateString() , time: rehydrate.toLocaleTimeString()});
       });
     });
 
