@@ -6,6 +6,7 @@ chatModule.controller('chatCtrl', ['chatFtry', '$scope', '$log',
 
     $scope.errors = {};
     $scope.success = {};
+    $scope.messages = [];
     $scope.haveName = false;
     
     // get users connected
