@@ -8,8 +8,19 @@ chatModule.controller('chatCtrl', ['chatFtry', '$scope', '$log',
     $scope.success = {};
     $scope.haveName = false;
     
-    // get messages
-    $scope.messages = [];
+    // get users connected
+    socket.on('users', function(users){
+      console.log("Users obtained from server: " + users);
+      $scope.$apply(function(){
+        $scope.users = users;
+      });
+    });
+    
+    // check if user name is blank
+    $scope.checkUser = function(name){
+      if (name.length > 0) return true;
+      else return false;
+    };
     
     // send message
     $scope.sendMessage = function() {

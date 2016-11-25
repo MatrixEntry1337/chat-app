@@ -11,7 +11,7 @@
                 </div>
                 <form ng-submit="changeName()">
                     <div class="modal-body">
-                        <input type="text" class="form-control" placeholder="Enter name... 10 character limit" ng-model="newName" />
+                        <input type="text" class="form-control" placeholder="Enter name... 15 character limit" ng-model="newName" />
                         <div class=" text-center margin-top-10"><strong class="text-danger bg-danger">{{ errors.nameMessage }}</strong></div>
                         <div class=" text-center margin-top-10"><strong class="text-success bg-success">{{ success.nameMessage }}</strong></div>
                     </div>
@@ -79,20 +79,18 @@
                 <div class="panel-body">
                     <ul class=" chat media-list">
 
-                        <li class="media">
+                        <li class="media" ng-repeat="user in users" ng-show="checkUser(user.name)">
 
                             <div class="media-body">
 
-                                <!--<div class="media">-->
-                                <!--    <a class="pull-left" href="#">-->
-                                <!--        <img class="media-object img-circle" style="max-height:40px;" src="" />-->
-                                <!--    </a>-->
-                                <!--    <div class="media-body">-->
-                                <!--        <h5>Alex Deo | User </h5>-->
-
-                                <!--        <small class="text-muted">Active From 3 hours</small>-->
-                                <!--    </div>-->
-                                <!--</div>-->
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" style="max-height:40px;" src="" />
+                                    </a>
+                                    <div class="media-body">
+                                        <small>User -- {{ user.name }}</small>
+                                    </div>
+                                </div>
 
                             </div>
                         </li>
