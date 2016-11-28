@@ -5,7 +5,7 @@ appModule.config(['$stateProvider','$urlRouterProvider', function($stateProvider
 
     $stateProvider
         .state('chat', {
-            url: '/chat-home',
+            url: '/chat',
             templateUrl: 'templates/chat.html',
             controller: 'chatCtrl'
         })
