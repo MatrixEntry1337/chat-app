@@ -1,17 +1,12 @@
 var appModule = angular.module('app', ['ui.router', 'chat', 'luegg.directives', 'ngTextareaEnter']);
 
 appModule.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-   $urlRouterProvider.otherwise('chat-home');
+   $urlRouterProvider.otherwise('chat');
 
     $stateProvider
-        .state('chat-home', {
+        .state('chat', {
             url: '/chat-home',
-            templateUrl: 'templates/chat-home.html',
-            controller: 'chatCtrl'
-        })
-        .state('new-chat-home', {
-            url: '/new-chat-home',
-            templateUrl: 'templates/new-chat.html',
+            templateUrl: 'templates/chat.html',
             controller: 'chatCtrl'
         })
         .state('404', {

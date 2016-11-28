@@ -1,0 +1,181 @@
+<!-- Modal -->
+<div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                <h4 class="modal-title" id="myModalLabel">Please Enter a Chat Nickname</h4>
+            </div>
+            <form ng-submit="changeName()">
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="Enter name... 15 character limit" ng-model="newName" />
+                    <div class=" text-center margin-top-10"><strong class="text-danger bg-danger">{{ errors.nameMessage }}</strong></div>
+                    <div class=" text-center margin-top-10"><strong class="text-success bg-success">{{ success.nameMessage }}</strong></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- HEADER -->
+<header id="header">
+</header>
+<!-- END HEADER -->
+
+<!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+    <!-- User info -->
+    <div class="login-info">
+        <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
+
+					<a href="">
+						<img src="" alt="" class="online" />
+						<span>
+							{{name}}
+						</span>
+        </a>
+
+        </span>
+    </div>
+    <!-- end user info -->
+
+    <!-- NAVIGATION : This navigation is also responsive-->
+    <nav>
+        <!--
+				NOTE: Notice the gaps after each icon usage <i></i>..
+				Please note that these links work a bit different than
+				traditional href="" links. See documentation for details.
+				-->
+
+        <ul>
+            <li class="chat-users top-menu-invisible">
+                <a href=""><i class="fa fa-lg fa-fw fa-comment-o"></i> <span class="menu-item-parent">Users</span></a>
+                <ul style="display: block;">
+                    <li>
+                        <!-- DISPLAY USERS -->
+                        <div class="display-users">
+
+                            <a href="" class="usr" data-chat-id="cha1" data-chat-fname="Sadi" data-chat-lname="Orlaf" data-chat-status="online" 
+                                ng-show="checkUser(user.name)" ng-repeat="user in users">
+                                <i></i>{{ user.name }}
+                            </a>
+
+                        </div>
+                        <!-- END DISPLAY USERS -->
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+    <span class="minifyme" data-action="minifyMenu">
+				<i class="fa fa-arrow-circle-left hit"></i>
+			</span>
+
+</aside>
+<!-- END NAVIGATION -->
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+    <!-- MAIN CONTENT -->
+    <div id="content" style="padding: 0px;">
+        <!-- widget grid -->
+        <section id="widget-grid" class="">
+
+            <!-- row -->
+            <div class="row">
+
+                <article class="col-sm-12 col-md-12 col-lg-12">
+
+                    <!-- new widget -->
+                    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false" data-widget-fullscreenbutton="false" style="margin-bottom: 0px;">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-comments txt-color-white"></i> </span>
+                            <h2>Main Chat Room </h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <div class="widget-body widget-hide-overflow no-padding">
+                                <!-- content goes here -->
+                                <!-- CHAT BODY -->
+                                <div id="chat-body" class="chat-body" style="height: 70vh;" scroll-glue>
+                                    <ul>
+                                        <li class="message" style="margin: 5px 0 0 0;" ng-repeat="each in messages">
+                                            <div class="message-text" style="margin-left: 0px;">
+                                                <time>
+													{{ each.date }} at {{ each.time }}
+												</time> <a href="" class="username">{{ each.user }}</a> {{each.message}}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- CHAT FOOTER -->
+                                <div class="chat-footer">
+                                    <form ng-submit="sendMessage()">
+                                        <!-- CHAT TEXTAREA -->
+                                        <div class="textarea-div">
+
+                                            <div class="typearea">
+                                                <textarea placeholder="Enter Message..." ng-model="message" ng-show="haveName" id="textarea-expand" 
+                                                    class="custom-scroll" ng-textarea-enter="sendMessage()"></textarea>
+                                                <textarea placeholder="Create a name first..." ng-model="message" ng-show="!haveName" id="textarea-expand" 
+                                                    class="custom-scroll" data-toggle="modal" data-target="#nameModal">
+                                            </textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- CHAT REPLY/SEND -->
+                                        <span class="textarea-controls">
+									    	<button type="submit" class="btn btn-sm btn-primary pull-right" ng-disabled="!haveName">
+										    	Send
+									    	</button>
+									    </span>
+                                    </form>
+                                </div>
+
+                                <!-- end content -->
+                            </div>
+
+                        </div>
+                        <!-- end widget div -->
+                    </div>
+                    <!-- end widget -->
+
+                </article>
+
+            </div>
+
+            <!-- end row -->
+
+        </section>
+        <!-- end widget grid -->
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<!-- PAGE FOOTER -->
+<div class="page-footer">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <span class="txt-color-white">Erase <span class="hidden-xs"> - Chat Application</span> © 2016-2017</span>
+        </div>
+    </div>
+</div>
+<!-- END PAGE FOOTER -->
