@@ -8,56 +8,75 @@ chatModule.controller('chatCtrl', ['chatFtry', '$scope', '$log',
     $scope.success = {};
     $scope.messages = [];
     $scope.haveName = false;
-    
+
     // get users connected
-    socket.on('users', function(users){
+    socket.on('users', function(users) {
       console.log("Users obtained from server: " + users);
-      $scope.$apply(function(){
+      $scope.$apply(function() {
         $scope.users = users;
       });
     });
-    
+
     // check if user name is blank
-    $scope.checkUser = function(name){
+    $scope.checkUser = function(name) {
       if (name.length > 0) return true;
       else return false;
     };
-    
+
     // send message
     $scope.sendMessage = function() {
-      if(this.message.length > 0){
+      if (this.message.length > 0) {
         var date = new Date();
-        console.log("Sending message over socket: " + this.message);
-        socket.emit('message', this.message, this.name, date);
-        this.message = "";
+        if (checkFor(this.message)) {
+          console.log("Sending message over socket: " + this.message);
+          socket.emit('message', this.message, this.name, date);
+          this.message = "";
+        }
       }
     };
-    
+
+    // check for /
+    var checkFor = function(message, date) {
+      if (message.startsWith('/')) {
+        console.log("Sending function message over socket: " + message);
+        socket.emit('functionMessage', message, $scope.name, date);
+        $scope.message = "";
+        return false;
+      }
+      return true;
+    };
+
     // receive message
-    socket.on('message', function(message, name, date){
+    socket.on('message', function(message, name, date) {
       $log.log("Received message on socket from server: " + message + " from " + name);
       var rehydrate = new Date(date);
-      $scope.$apply(function(){
-        $scope.messages.push({user: name, message: message, date: rehydrate.toLocaleDateString() , 
-        time: rehydrate.toLocaleTimeString()});
+      $scope.$apply(function() {
+        $scope.messages.push({
+          user: name,
+          message: message,
+          date: rehydrate.toLocaleDateString(),
+          time: rehydrate.toLocaleTimeString()
+        });
       });
     });
 
     // create nickname
     $scope.changeName = function() {
-      
+
       // if user does not enter a name
-      if (this.newName.length == 0){
+      if (this.newName.length == 0) {
         this.errors.nameMessage = "Please enter a chat room name";
         clearErrorMessages();
-      
-      // if user enters a really long name
-      }else if (this.newName.length > 15) {
+
+        // if user enters a really long name
+      }
+      else if (this.newName.length > 15) {
         this.errors.nameMessage = "Your chat room name is larger than 15 characters";
         clearErrorMessages();
-      
-      // if user enters a valid name  
-      }else {
+
+        // if user enters a valid name  
+      }
+      else {
         this.success.nameMessage = "Name changed";
         this.name = this.newName;
         chatFtry.changeName(this.newName);
@@ -74,7 +93,7 @@ chatModule.controller('chatCtrl', ['chatFtry', '$scope', '$log',
         $scope.$apply();
       }, 4000);
     };
-    
+
     // clear Success Messages --timeout
     var clearSuccessMessages = function() {
       $scope.newName = "";

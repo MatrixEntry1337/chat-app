@@ -1,24 +1,35 @@
 var socket = require('socket.io');
-
-// store users
+// var socketFunctions = require();
 var users = [];
 
-
-// helper - prints user name 
+// prints list of users 
 var printUsers = function(users) {
-  console.log("List of users - ");
-  users.forEach(function(socket) {
-    console.log("Name: " + socket.name);
-    console.log("Socket id:  " + socket.id);
-  });
+  if (users.length >= 0) {
+    console.log("List of users: ");
+    users.forEach(function(socket) {
+      console.log("Name: " + socket.name);
+      console.log("Socket id:  " + socket.id);
+    });
+  }
+  else
+  console.log("No users connected.");
 };
 
-// helper - find user
+// find user
 var findIndex = function(users, socketId) {
   return users.findIndex(function(user) {
     return user.id == socketId;
   });
 };
+
+//add user to list of users
+var addUser = function(id, name) {
+  users.push({
+    id: id,
+    name: name
+  });
+};
+
 
 module.exports.listen = function(app) {
   console.log("Socket is up and running!");
@@ -28,26 +39,16 @@ module.exports.listen = function(app) {
   // middleware
   io.use(function(socket, next) {
     var handshakeData = socket.request;
-    console.log("User socket id: " + socket.id);
-    console.log("Chat name: " + handshakeData._query._name);
-
-    // log the data for the user that has just connected
-    users.push({
-      id: socket.id,
-      name: handshakeData._query._name
-    });
-
-    // debug - print out the number of users currently connected.
+    addUser(socket.id, handshakeData._query._name);
     printUsers(users);
     next();
   });
 
   // client connect
   io.on('connect', function(socket) {
-    console.log('A new user connected.');
-    // var handshakeData = socket.request;
+    console.log('A new user connected: ' + socket.id);
 
-    // send updated users
+    // send updated users when new user connects
     io.emit('users', users);
 
     // socket error
@@ -55,22 +56,23 @@ module.exports.listen = function(app) {
       console.log("There was an error with the socket connection.");
     });
 
-    // socket when disconnected
+    // socket on disconnect
     socket.on('disconnect', function() {
-      console.log("Socket disconnected.");
-
-      // debug - find user, delete user, print to verify
-      console.log("Socket to disconnect: " + findIndex(users, socket.id));
+      console.log("User disconnected: " + users[findIndex(users, socket.id)].name);
       users.splice(findIndex(users, socket.id), 1);
       printUsers(users);
-
       // send updated users
       io.emit('users', users);
     });
 
-    // socket when reconnecting
+    // socket on reconnect
     socket.on('reconnect', function() {
-      console.log("User reconnected.");
+      var reconDate = new Date();
+      var reconUser = users[findIndex(users, socket.id)].name;
+      console.log("User reconnected: " + reconUser);
+      var reconMessage = reconUser + " has reconnected to the chat room";
+      io.emit('reconnect', reconMessage, reconUser, reconDate);
+      io.emit('users', users);
     });
 
     socket.on('getUsers', function() {
@@ -85,7 +87,41 @@ module.exports.listen = function(app) {
       io.emit('message', message, name, date);
     });
 
-    // user chat name
+    //compute function style message from user
+    socket.on('functionMessage', function(message, name, date) {
+      // remove whitespace
+      message = message.trim();
+      // check for function
+      var limit = message.search(" ");
+      if (limit == -1) {
+        if (message == "/me") {
+          message = "*I am " + name + "!!";
+          console.log("Sending message over socket: " + message);
+          io.emit("message", message, null, date);
+        }
+        else {
+          message = "*WHOOPS...wrong function call";
+          console.log("Sending message over socket: " + message);
+          io.emit("errorMessage", message);
+        }
+      }
+      else {
+        var functionExtract = message.slice(0, limit);
+        if (functionExtract == "/me") {
+          var messageExtract = message.slice(limit);
+          message = "*" + name + " " + messageExtract;
+          console.log("Sending message over socket: " + message);
+          io.emit("message", message, null, date);
+        }
+        else {
+          message = "*WHOOPS...wrong function call";
+          console.log("Sending message over socket: " + message);
+          io.emit("errorMessage", message);
+        }
+      }
+    });
+
+    // change chat name
     socket.on('changeName', function(name) {
       console.log("User wants to change his name to: " + name);
       users[findIndex(users, socket.id)].name = name;
